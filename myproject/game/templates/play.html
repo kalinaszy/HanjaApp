@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block container %}
+    {{ message }}
+    {% include 'form.html' %}
+    <h1>Game</h1>
+   <form>
+    <fieldset>
+     <label>choose the right meaning<br>
+      <label> <input type="radio" name="answer" value="guessed_right">{{  }}</label>
+      <br>
+      <label> <input type="radio" name="answer" value="guessed_wrong1">{{  }}</label>
+      <br>
+      <label> <input type="radio" name="answer" value="guessed_wrong2">{{  }}</label>
+     </label>
+    </form>
+
+{% endblock %}

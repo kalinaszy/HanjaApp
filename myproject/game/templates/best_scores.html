@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<table>
+    {% for score in all_scores %}
+    <tr>
+        <td>{{ player }}</td>
+        <td>{{ players_score }}</td>
+        <td>{{ when }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+

@@ -1,0 +1,15 @@
+{% load widget_tweaks %}
+<form action="{{ action }}" method="post">
+  {% csrf_token %}
+  {{ form.non_fields_error }}
+  {% for field in form %}
+      <div class="fieldWrapper">
+          {{ field.errors }}
+          {{ field.label_tag }} {{ field|attr:"class:form-control" }}
+          {% if field.help_text %}
+            <p class="help">{{ field.help_text|safe }}</p>
+          {% endif %}
+    </div>
+  {% endfor %}
+    <input value="OK" type="submit">
+</form>
