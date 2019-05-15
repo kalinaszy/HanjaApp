@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 
 {% block container %}
+    <h2>Best Scores:</h2>
 <table>
     {% for score in all_scores %}
     <tr>
-        <td>{{ player }}</td>
-        <td>{{ players_score }}</td>
-        <td>{{ when }}</td>
+        <td><strong> {{ score.player }}</strong> / </td>
+        <td> points <strong>{{ score.players_score }}</strong> out of 10 / </td>
+        <td> {{ score.when }}</td>
     </tr>
     {% endfor %}
 </table>
+    {{ scores_sorted }}
 {% endblock %}
 

@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.db.models import Count
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views import View
 import random
@@ -18,7 +18,7 @@ class PlayGameView(View):
             if not request.user.is_authenticated:
                 return redirect('/login')
             list_answers = []
-            puzzle = Guess.objects.last()
+            puzzle = Guess.objects.order_by('?').first()
             image = puzzle.image_character
             answer1 = puzzle.guessed_right
             answer2 = puzzle.guessed_wrong1
@@ -28,7 +28,10 @@ class PlayGameView(View):
             list_answers.append(answer2)
             list_answers.append(answer3)
             random.shuffle(list_answers)
-            return render(request, 'play.html', {'list_answers':list_answers, 'image': image, 'puzzle_id': puzzle.id})
+            score = Score.objects.filter(player=request.user, games_number__lt=10).first()
+            players_score = 0 if score is None else score.players_score
+            return render(request, 'play.html', {'list_answers':list_answers, 'image': image, 'puzzle_id': puzzle.id, 'score':\
+                                                 players_score})
 
         def post(self, request):
             if not request.user.is_authenticated:
@@ -43,34 +46,12 @@ class PlayGameView(View):
                 score.players_score += 1
             score.games_number += 1
             score.save()
-            return render(request, 'play.html')
+            return HttpResponseRedirect('/play')
 
 
+class BestScoresView(View):
 
-
-
-
-
-# class BestScoresView(View):
-#
-#     def get(self, request):
-#         users = User.objects.all()
-#         #all_scores = Score.objects.annotate(count_scores=Count('players_score').order_by('-count_scores'))
-#         all_scores = Score.objects.order_by('-score')[0:]
-#         return render(request, 'best_scores.html', {'all_scores':all_scores})
-
-
-
-
-
-
-
-
-
-
-
-
-    # my_area = Area.objects.all()[0]
-    # Event.objects.filter(area=my_area).count()
-
+    def get(self, request):
+        all_scores = Score.objects.order_by('-players_score')
+        return render(request, 'best_scores.html', {'all_scores':all_scores})
 
