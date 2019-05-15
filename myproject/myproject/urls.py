@@ -15,8 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
-from game.views import PlayGameView, BestScoresView
+from . import settings
+from django.contrib.staticfiles.urls import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf.urls.static import static
+from game.views import PlayGameView #BestScoresView
 from user.views import LoginView, AddUserView
 
 urlpatterns = [
@@ -24,5 +27,7 @@ urlpatterns = [
     path('login', LoginView.as_view()),
     path('add', AddUserView.as_view()),
     path('play', PlayGameView.as_view()),
-    path('best_scores', BestScoresView.as_view())
+    #path('best_scores', BestScoresView.as_view())
 ]
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

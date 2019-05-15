@@ -9,7 +9,7 @@ from user.forms import AddUserForm, LoginForm
 class AddUserView(View):
     def get(self, request):
         form = AddUserForm()
-        return render(request, 'templates/add_user.html', {'form':form})
+        return render(request, 'add_user.html', {'form':form})
     def post(self, request):
         form = AddUserForm(request.POST)
         if form.is_valid():
@@ -18,20 +18,20 @@ class AddUserView(View):
             password = form.cleaned_data['password']
             email = form.cleaned_data['email']
             if query.exists():
-                return render(request, 'templates/add_user.html', {'form':form, 'message': 'This username already exists'})
+                return render(request, 'add_user.html', {'form':form, 'message': 'This username already exists'})
             else:
                 user = User.objects.create_user(\
                     username=username, password=password, email=email)
                 #return render(request, 'add_user.html', {'form':AddUserForm(), 'message':'Done'})
                 return redirect('/play')
         else:
-            return render(request, 'templates/add_user.html', {'form':form})
+            return render(request, 'add_user.html', {'form':form})
 
 
 class LoginView(View):
     def get(self, request):
         form = LoginForm()
-        return render(request, 'templates/login.html', {'form':form})
+        return render(request, 'login.html', {'form':form})
     def post(self, request):
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -43,6 +43,6 @@ class LoginView(View):
                    login(request, user)
                    return redirect('/play')
            else:
-               return render(request, 'templates/add_user.html', {'form': form, 'message': 'There is no such a user'})
+               return render(request, 'add_user.html', {'form': form, 'message': 'There is no such a user'})
         else:
-            return render(request, 'templates/login.html', {'form':form})
+            return render(request, 'login.html', {'form':form})

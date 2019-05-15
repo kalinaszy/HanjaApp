@@ -1,18 +1,16 @@
 {% extends 'base.html' %}
 
 {% block container %}
-    {{ message }}
-    {% include 'form.html' %}
-    <h1>Game</h1>
-   <form>
-    <fieldset>
-     <label>choose the right meaning<br>
-      <label> <input type="radio" name="answer" value="guessed_right">{{  }}</label>
-      <br>
-      <label> <input type="radio" name="answer" value="guessed_wrong1">{{  }}</label>
-      <br>
-      <label> <input type="radio" name="answer" value="guessed_wrong2">{{  }}</label>
-     </label>
+    <h2>Game</h2>
+            <label><h3>Choose the right meaning:</h3><br></label>
+    <img src="{{ image.url }}">
+   <form action="{{ action }}", method="post">
+     {% csrf_token %}
+         {% for element in list_answers %}
+            <label><strong><input type="radio" name="answer" value="{{ element }}">{{ element }}</strong></label>
+             <br>
+         {% endfor %}
+    <input type="submit" value="Submit">
+   <input type="hidden" name="puzzle_id" value="{{ puzzle_id }}">
     </form>
-
 {% endblock %}

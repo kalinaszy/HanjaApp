@@ -9,15 +9,16 @@ from django.db import models
 #     password = models.CharField(null=False)
 
 class Guess(models.Model):
-    image_character = models.ImageField()
+    image_character = models.ImageField(upload_to="gallery")
     guessed_right = models.CharField(max_length=50)
     guessed_wrong1 = models.CharField(max_length=50)
     guessed_wrong2 = models.CharField(max_length=50)
 
 class Score(models.Model):
+    games_number = models.IntegerField(default=0)
     player = models.ForeignKey(User, on_delete=models.CASCADE)
-    players_score = models.IntegerField()
-    when = models.DateTimeField()
+    players_score = models.IntegerField(default=0)
+    when = models.DateTimeField(auto_now_add=True)
 
 class Answer(models.Model):
     game = models.ForeignKey(Score, on_delete=models.CASCADE)
