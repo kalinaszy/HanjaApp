@@ -2,15 +2,32 @@
 
 {% block container %}
     <h2>Best Scores:</h2>
-<table>
+<table class="table table-sm">
     {% for score in all_scores %}
     <tr>
-        <td><strong> {{ score.player }}</strong> / </td>
-        <td> points <strong>{{ score.players_score }}</strong> out of 10 / </td>
+        <td><strong> {{ score.player }}</strong> &raquo;</td>
+        <td> points <strong>{{ score.players_score }}</strong> out of 10 &raquo;</td>
         <td> {{ score.when }}</td>
     </tr>
     {% endfor %}
 </table>
-    {{ scores_sorted }}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if all_scores.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ all_scores.previous_page_number }}"><strong>previous</strong></a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ all_scores.number }} of {{ all_scores.paginator.num_pages }}.
+        </span>
+
+        {% if all_scores.has_next %}
+            <a href="?page={{ all_scores.next_page_number }}"><strong>next</strong></a>
+            <a href="?page={{ all_scores.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
 {% endblock %}
 

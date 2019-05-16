@@ -14,11 +14,14 @@ class Guess(models.Model):
     guessed_wrong1 = models.CharField(max_length=50)
     guessed_wrong2 = models.CharField(max_length=50)
 
+
 class Score(models.Model):
     games_number = models.IntegerField(default=0)
     player = models.ForeignKey(User, on_delete=models.CASCADE)
     players_score = models.IntegerField(default=0)
     when = models.DateTimeField(auto_now_add=True)
+    question = models.ManyToManyField(Guess, blank=True, through='Answer')
+
 
 class Answer(models.Model):
     game = models.ForeignKey(Score, on_delete=models.CASCADE)

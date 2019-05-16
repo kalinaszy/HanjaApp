@@ -2,8 +2,8 @@
 
 {% block container %}
     <h2>Game</h2>
-            <label><h3>Choose the right meaning:</h3><br></label>
-    <img src="{{ image.url }}">
+            <label><h3>Choose the right meaning of:</h3><br></label>
+    <img src="{{ image.url }}" width="300" height="300">
    <form action="{{ action }}", method="post">
      {% csrf_token %}
          {% for element in list_answers %}
@@ -12,6 +12,8 @@
          {% endfor %}
     <input type="submit" value="Submit">
    <input type="hidden" name="puzzle_id" value="{{ puzzle_id }}">
-   You have earned {{ score }} points of 10
+   Question {{ score_games_number }} / 10.
+   <br>
+   You have earned {{ score }} points out of 10.
     </form>
 {% endblock %}

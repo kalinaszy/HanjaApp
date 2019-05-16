@@ -19,15 +19,18 @@ from . import settings
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
-from game.views import PlayGameView, BestScoresView
-from user.views import LoginView, AddUserView
+from game.views import IndexView, PlayGameView, BestScoresView, CheckAnswersView
+from user.views import LoginView, AddUserView, LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', IndexView.as_view()),
     path('login', LoginView.as_view()),
+    path('logout', LogoutView.as_view()),
     path('add', AddUserView.as_view()),
     path('play', PlayGameView.as_view()),
-    path('best_scores', BestScoresView.as_view())
+    path('best_scores', BestScoresView.as_view()),
+    path('check_answers', CheckAnswersView.as_view())
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,9 +1,11 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views import View
 # Create your views here.
-from user.forms import AddUserForm, LoginForm
+from django.views.generic import FormView
+from user.forms import AddUserForm, LoginForm, LogoutForm
 
 
 class AddUserView(View):
@@ -16,13 +18,11 @@ class AddUserView(View):
             username = form.cleaned_data['username']
             query = User.objects.filter(username=username)
             password = form.cleaned_data['password']
-            email = form.cleaned_data['email']
             if query.exists():
                 return render(request, 'add_user.html', {'form':form, 'message': 'This username already exists'})
             else:
                 user = User.objects.create_user(\
-                    username=username, password=password, email=email)
-                #return render(request, 'add_user.html', {'form':AddUserForm(), 'message':'Done'})
+                    username=username, password=password)
                 return redirect('/play')
         else:
             return render(request, 'add_user.html', {'form':form})
@@ -43,6 +43,16 @@ class LoginView(View):
                    login(request, user)
                    return redirect('/play')
            else:
-               return render(request, 'add_user.html', {'form': form, 'message': 'There is no such a user'})
+               return HttpResponseRedirect('/add')
+               #return render(request, 'add_user.html', {'form': form, 'message': 'There is no such a user'})
         else:
             return render(request, 'login.html', {'form':form})
+
+
+class LogoutView(FormView):
+    template_name = 'logout.html'
+    form_class = LogoutForm
+    success_url = '/login'
+    def form_valid(self, form):
+        logout(self.request)
+        return super(LogoutView, self).form_valid(form)

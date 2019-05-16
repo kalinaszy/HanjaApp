@@ -9,9 +9,17 @@
     </head>
     <body>
     <div class="container">
-        <h1>Learn Hanja</h1>
+        <h1><a href="index.html">Learn Hanja</a></h1>
         {% block container %}
         {% endblock %}
+            <div>
+            <br>
+            {% if zalogowany %}
+                <p> {{ user }} <a href="/logout">Log out</a></p>
+            {% else %}
+              <p>Not logged in <a href="/login">Log in</a></p>
+            {% endif %}
+        </div>
     </div>
     </body>
 </html>
