@@ -10,7 +10,6 @@ from game.models import Answer, Score, Guess
 
 class IndexView(View):
 
-
     def get(self, request):
         return render(request, 'index.html')
 
@@ -34,11 +33,10 @@ class PlayGameView(View):
             random.shuffle(list_answers)
             score = Score.objects.filter(player=request.user, games_number__lt=10).first()
             players_score = 0 if score is None else score.players_score
-            score_games_number = score.games_number
+            score_games_number = 0 if score is None else score.games_number
             return render(request, 'play.html', {
-                'list_answers':list_answers, 'image': image, 'puzzle_id': puzzle.id, 'score': players_score,\
-                'score_games_number': score_games_number
-            })
+                'list_answers': list_answers, 'image': image, 'puzzle_id': puzzle.id, 'score': players_score,\
+                'score_games_number': score_games_number})
 
         def post(self, request):
             if not request.user.is_authenticated:
@@ -75,10 +73,6 @@ class CheckAnswersView(View):
 
 class BestScoresView(View):
 
-
-    # def get(self, request):
-    #     all_scores = Score.objects.order_by('-players_score')
-    #     return render(request, 'best_scores.html', {'all_scores': all_scores})
 
     def get(self, request):
         all_scores = Score.objects.order_by('-players_score')

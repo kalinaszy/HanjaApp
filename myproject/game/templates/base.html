@@ -8,11 +8,11 @@
             </script><meta charset="utf-8">
     </head>
     <body>
-    <div class="container">
-        <h1><a href="index.html">Learn Hanja</a></h1>
+        <div class="container" style="background-color:#84a3e1">
+            <h1><a href="/">Learn Hanja</a></h1></div>
         {% block container %}
         {% endblock %}
-            <div>
+            <div class="container">
             <br>
             {% if zalogowany %}
                 <p> {{ user }} <a href="/logout">Log out</a></p>
@@ -20,6 +20,5 @@
               <p>Not logged in <a href="/login">Log in</a></p>
             {% endif %}
         </div>
-    </div>
     </body>
 </html>

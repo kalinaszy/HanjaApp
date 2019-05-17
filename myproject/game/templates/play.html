@@ -1,19 +1,24 @@
 {% extends 'base.html' %}
 
 {% block container %}
-    <h2>Game</h2>
-            <label><h3>Choose the right meaning of:</h3><br></label>
-    <img src="{{ image.url }}" width="300" height="300">
+    <div class="container" style="background-color:#e0e0eb">
+        <h2>Game</h2></div>
+            <div class="container"><label><h3>Choose the right meaning of:</h3><br></label>
+    <img src="{{ image.url }}" width="300" height="300"></div>
    <form action="{{ action }}", method="post">
      {% csrf_token %}
+   <div class="container">
          {% for element in list_answers %}
-            <label><strong><input type="radio" name="answer" value="{{ element }}">{{ element }}</strong></label>
+             <label>
+             <label><strong><input type="radio" name="answer" value="{{ element }}">{{ element }}</strong></label>
+             </label>
              <br>
          {% endfor %}
-    <input type="submit" value="Submit">
+   </div>
+   <div class="container"><input type="submit" value="Submit"></div>
    <input type="hidden" name="puzzle_id" value="{{ puzzle_id }}">
-   Question {{ score_games_number }} / 10.
-   <br>
-   You have earned {{ score }} points out of 10.
+       <div class="container">Question <strong>{{ score_games_number }}</strong> / 10.</div>
+   <div class="container">
+       You have earned <strong>{{ score }}</strong> / 10.</div>
     </form>
 {% endblock %}
