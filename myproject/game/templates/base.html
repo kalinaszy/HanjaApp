@@ -13,9 +13,8 @@
         {% block container %}
         {% endblock %}
             <div class="container">
-            <br>
             {% if zalogowany %}
-                <p> {{ user }} <a href="/logout">Log out</a></p>
+                <p> <strong>{{ myuser }}</strong> <a href="/logout">Log out</a></p>
             {% else %}
               <p>Not logged in <a href="/login">Log in</a></p>
             {% endif %}
