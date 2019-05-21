@@ -19,7 +19,8 @@ from . import settings
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
-from game.views import IndexView, PlayGameView, BestScoresView, CheckAnswersView
+from game.views import IndexView, PlayGameView, BestScoresView, CheckAnswersView, ComposeCommentView, CommentsView, \
+    CommentDeleteView
 from user.views import LoginView, AddUserView, LogoutView
 
 urlpatterns = [
@@ -30,7 +31,11 @@ urlpatterns = [
     path('add', AddUserView.as_view()),
     path('play', PlayGameView.as_view()),
     path('best_scores', BestScoresView.as_view()),
-    path('check_answers', CheckAnswersView.as_view())
+    path('check_answers', CheckAnswersView.as_view()),
+    path('compose_comments', ComposeCommentView.as_view()),
+    path('comments', CommentsView.as_view(), name='comments_list'),
+    path('comment/<int:pk>/delete', CommentDeleteView.as_view(), name='delete_comment'),
+    path('comment/<int:pk>/edit', CommentEditView.as_view(), name='edit_comment'),
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

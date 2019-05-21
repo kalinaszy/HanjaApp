@@ -7,7 +7,7 @@
 
             </script><meta charset="utf-8">
     </head>
-    <body>
+    <div>
         <div class="container" style="background-color:#84a3e1">
             <h1><a href="/">Learn Hanja</a></h1></div>
         {% block container %}
@@ -18,6 +18,17 @@
             {% else %}
               <p>Not logged in <a href="/login">Log in</a></p>
             {% endif %}
-        </div>
+            </div>
+    </div>
+{#        button dodaj komentarz#}
+        {% block add_comment %}
+{#            <div>#}
+{#                <a href="/compose_comments">#}
+{#                    <input type="button" value="add a comment">#}
+{#                 </a>#}
+{#            </div>#}
+             <div class="container"><a class="btn btn-primary" href="compose_comments" role="button">Add a comment</a>
+             </div>
+        {% endblock add_comment %}
     </body>
 </html>

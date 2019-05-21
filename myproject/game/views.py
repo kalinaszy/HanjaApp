@@ -1,11 +1,15 @@
 from django.core.paginator import Paginator
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views import View
 import random
 
 # Create your views here.
-from game.models import Answer, Score, Guess
+from django.views.generic import ListView, DeleteView
+
+from game.forms import MessageForm
+from game.models import Answer, Score, Guess, Comment
 
 
 class IndexView(View):
@@ -70,6 +74,38 @@ class CheckAnswersView(View):
 
 
 
+class ComposeCommentView(View):
+    def get(self, request):
+        form = MessageForm()
+        return render(request, 'compose_comment.html', {'form':form})
+
+    def post(self, request):
+        form = MessageForm(request.POST)
+        user_logged = request.user #user jest automatyczny od User
+        if form.is_valid():
+            form.instance.sent_by = user_logged #a dlaczego nie form.cleaned data?
+            form.save()
+            return HttpResponseRedirect('/see_comments')
+        else:
+            return HttpResponseRedirect('compose_comments')
+    #
+#
+class CommentsView(ListView):
+    model = Comment
+    template_name = 'comments_view.html'
+    paginate_by = 10
+
+
+class CommentDeleteView(DeleteView):
+    model = Comment
+    template_name = 'delete.html'
+    success_url = reverse_lazy('comments_list')
+
+
+class CommentEditView(UpdateView):
+    model = Comment
+    template_name = 'edit_comment.html'
+    
 
 class BestScoresView(View):
 

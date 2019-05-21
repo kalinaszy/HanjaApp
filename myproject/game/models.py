@@ -7,6 +7,8 @@ from django.db import models
 #     username = models.CharField(max_length=30, null=False)
 #     email = models.EmailField(null=False)
 #     password = models.CharField(null=False)
+from django.urls import reverse
+
 
 class Guess(models.Model):
     image_character = models.ImageField(upload_to="gallery")
@@ -27,4 +29,10 @@ class Answer(models.Model):
     game = models.ForeignKey(Score, on_delete=models.CASCADE)
     task = models.ForeignKey(Guess, on_delete=models.CASCADE)
     correct = models.BooleanField()
+
+
+class Comment(models.Model):
+    comment_content = models.TextField()
+    sent_by = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+    date_sent = models.DateTimeField(auto_now_add=True)
 

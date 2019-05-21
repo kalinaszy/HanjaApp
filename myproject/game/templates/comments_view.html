@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block container %}
+    <div class="container"> <table class="table table-sm">
+    {% for comm in object_list %}
+        <tr>
+            <td>{{ comm.comment_content }}</td>
+            <td>{{ comm.sent_by }}</td>
+            <td><a href="{% url 'delete_comment' comm.id %}">X</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+    </div>
+     {# .... **Now the pagination section** .... #}
+    {% if is_paginated %}
+        <div class="container">
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="/cars?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="/cars?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+        </div>
+    {% endif %}
+{% endblock %}
