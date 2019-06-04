@@ -1,5 +1,6 @@
 {% load widget_tweaks %}
 <form action="{{ action }}" method="post">
+{#{{ action }}#}
   {% csrf_token %}
   {{ form.non_fields_error }}
   {% for field in form %}
@@ -11,5 +12,5 @@
           {% endif %}
     </div>
   {% endfor %}
-    <input value="OK" type="submit">
+    <input type="submit" value="OK">
 </form>

@@ -21,7 +21,7 @@ class AddUserView(View):
             if query.exists():
                 return render(request, 'add_user.html', {'form':form, 'message': 'This username already exists'})
             else:
-                user = User.objects.create_user(\
+                user = User.objects.create_user(
                     username=username, password=password)
                 return redirect('/play')
         else:
@@ -30,9 +30,11 @@ class AddUserView(View):
 
 class LoginView(View):
     def get(self, request):
+        print("GET")
         form = LoginForm()
         return render(request, 'login.html', {'form':form})
     def post(self, request):
+        print("POST")
         form = LoginForm(request.POST)
         if form.is_valid():
            username = form.cleaned_data['username']
@@ -44,9 +46,8 @@ class LoginView(View):
                    return redirect('/play')
            else:
                return HttpResponseRedirect('/add')
-               #return render(request, 'add_user.html', {'form': form, 'message': 'There is no such a user'})
         else:
-            return render(request, 'login.html', {'form':form})
+            return HttpResponseRedirect('/login')
 
 
 class LogoutView(FormView):

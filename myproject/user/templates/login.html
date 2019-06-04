@@ -2,6 +2,8 @@
 
 {% block container %}
     <div class="container"><h2>Log in</h2></div>
+{#      {% csrf_token %}#}
     <div class="container">{{ message }}
-        {% include 'form.html' %}</div>
+        {% include 'form.html' %}
+    </div>
 {% endblock %}

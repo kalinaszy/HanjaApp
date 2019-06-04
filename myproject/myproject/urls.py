@@ -20,7 +20,7 @@ from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from game.views import IndexView, PlayGameView, BestScoresView, CheckAnswersView, ComposeCommentView, CommentsView, \
-    CommentDeleteView
+    CommentDeleteView, CommentEditView
 from user.views import LoginView, AddUserView, LogoutView
 
 urlpatterns = [

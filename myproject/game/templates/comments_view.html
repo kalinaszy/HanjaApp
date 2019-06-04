@@ -6,7 +6,8 @@
         <tr>
             <td>{{ comm.comment_content }}</td>
             <td>{{ comm.sent_by }}</td>
-            <td><a href="{% url 'delete_comment' comm.id %}">X</a></td>
+            <td><a href="{% url 'delete_comment' comm.id %}">Delete</a></td>
+            <td><a href="{% url 'edit_comment' comm.id %}">Edit</a></td>
         </tr>
     {% endfor %}
     </table>
