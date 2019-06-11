@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.urls import reverse
 
 
 class Guess(models.Model):
@@ -16,6 +15,14 @@ class Score(models.Model):
     players_score = models.IntegerField(default=0)
     when = models.DateTimeField(auto_now_add=True)
     question = models.ManyToManyField(Guess, blank=True, through='Answer')
+
+    def take_answer(self, puzzle, correct):
+        if correct:
+            self.players_score += 1
+        if self.games_number <= 10:
+            self.games_number += 1
+            Answer.objects.create(task=puzzle, game=self, correct=correct)
+        self.save()
 
 
 class Answer(models.Model):

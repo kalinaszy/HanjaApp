@@ -14,3 +14,9 @@ class MessageForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(MessageForm, self).__init__(*args, **kwargs)
         self.fields['sent_by'].widget = forms.HiddenInput()
+
+class EmailForm(forms.ModelForm):
+    subject = forms.CharField()
+    text = forms.Textarea()
+    from_who = forms.EmailField()
+    to_who = forms.EmailField()

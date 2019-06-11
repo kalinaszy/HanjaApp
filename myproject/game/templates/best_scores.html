@@ -4,7 +4,7 @@
     <div class="container" style="background-color:#e0e0eb"><h2>Best Scores:</h2></div>
     <div class="container">
 <table class="table table-sm">
-    {% for score in all_scores %}
+    {% for score in page_obj %}
     <tr>
         <td><strong> {{ score.player }}</strong> &raquo;</td>
         <td> points <strong>{{ score.players_score }}</strong> out of 10 &raquo;</td>
@@ -16,18 +16,18 @@
 <div class="container">
 <div class="pagination">
     <span class="step-links">
-        {% if all_scores.has_previous %}
+        {% if page_obj.has_previous %}
             <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ all_scores.previous_page_number }}"><strong>previous</strong></a>
+            <a href="?page={{ page_obj.previous_page_number }}"><strong>previous</strong></a>
         {% endif %}
 
         <span class="current">
-            Page {{ all_scores.number }} of {{ all_scores.paginator.num_pages }}.
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
         </span>
 
-        {% if all_scores.has_next %}
-            <a href="?page={{ all_scores.next_page_number }}"><strong>next</strong></a>
-            <a href="?page={{ all_scores.paginator.num_pages }}">last &raquo;</a>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}"><strong>next</strong></a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
 </div>
