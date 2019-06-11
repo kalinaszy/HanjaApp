@@ -121,17 +121,17 @@ class BestScoresView(ListView):
     paginate_by = 10
     template_name = 'best_scores.html'
 
-class SendAnEmailView(FormView):
-    form_class = EmailForm
-    template_name = 'email.html'
-
-    def post(self, request):
-        send_mail(
-            'Subject here',
-            'Here is the message.',
-            'kamil.radomski@laboratorium.ee',
-            ['kalina.szymczyk@gmail.com'],
-        )
+# class SendAnEmailView(FormView):
+#     form_class = EmailForm
+#     template_name = 'email.html'
+#
+#     def post(self, request):
+#         send_mail(
+#             'Subject here',
+#             'Here is the message.',
+#             'iszymczykk683@gmail.com',
+#             ['kalina.szymczyk@gmail.com'],
+#         )
 
 
 

@@ -137,4 +137,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'kalina.szymczyk@gmail.com'
-EMAIL_HOST_PASSWORD = my_password
+EMAIL_HOST_PASSWORD = os.environ.get("EMAILPASSWORD") #  zmienna srodowiskowa, w terminalu  export EMAILPASSWORD="alamakota"
+#i pozniej python manage.py runserver

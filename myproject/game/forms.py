@@ -7,8 +7,8 @@ class MessageForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = '__all__'
-    #super to klasa wyzej
-    # def is_valid(self):
+    #  super to klasa wyzej
+    #  def is_valid(self):
     #     super(MessageForm, self).is_valid()
 
     def __init__(self, *args, **kwargs):
