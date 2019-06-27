@@ -5,7 +5,7 @@
    <div class="container"> <table class="table table-sm">
         {% for answer in answers %}
         <tr>
-            <td><img src="{{ answer.task.image_character.url }}" width="45" height="45"></td>
+            <td>{{ answer.task.char_character }}</td>
             <td>The right answer: <strong>{{ answer.task.guessed_right }}</strong> &raquo;</td>
             <td>Your answer was: <strong>{{ answer.correct }}</strong></td>
         </tr>

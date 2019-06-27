@@ -1,15 +1,13 @@
 import random
 
-from django.core.mail import send_mail
-from django.core.paginator import Paginator
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views import View
-from django.views.generic import ListView, DeleteView, UpdateView, FormView
+from django.views.generic import ListView, DeleteView, UpdateView
 
-from game.forms import MessageForm, EmailForm
+from game.forms import MessageForm
 from game.models import Answer, Score, Guess, Comment
 
 
@@ -34,7 +32,7 @@ class PlayGameView(View):
             return render(
                 request, 'play.html', {
                 'list_answers': list_answers,
-                'image': puzzle.image_character,
+                'image': puzzle.char_character,
                 'puzzle_id': puzzle.id,
                 'score': players_score,
                 'score_games_number': score_games_number

@@ -4,7 +4,9 @@
     <div class="container" style="background-color:#e0e0eb">
         <h2>Game</h2></div>
             <div class="container"><label><h3>Choose the right meaning of:</h3><br></label>
-    <img src="{{ image.url }}" width="300" height="300"></div>
+    <!--<img src="{{ image.url }}" width="300" height="300"></div>-->
+                <div class="container"><label><h3><font size="500px">{{ image }}</font></h3></label>
+            </div>
    <form action="{{ action }}", method="post">
      {% csrf_token %}
    <div class="container">

@@ -2,11 +2,17 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
+
+
 class Guess(models.Model):
-    image_character = models.ImageField(upload_to="gallery")
-    guessed_right = models.CharField(max_length=50)
-    guessed_wrong1 = models.CharField(max_length=50)
-    guessed_wrong2 = models.CharField(max_length=50)
+    #image_character = models.ImageField(upload_to="gallery", null=True)
+    char_character = models.CharField(max_length=10, null=True)
+    guessed_right = models.CharField(max_length=256)
+    guessed_wrong1 = models.CharField(max_length=256)
+    guessed_wrong2 = models.CharField(max_length=256)
+
+    # def get_char(self):
+    #     return self.char_character or self.image_character
 
 
 class Score(models.Model):
