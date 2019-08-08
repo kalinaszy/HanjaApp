@@ -6,9 +6,11 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views import View
 from django.views.generic import ListView, DeleteView, UpdateView
+from rest_framework import viewsets
 
 from game.forms import MessageForm
 from game.models import Answer, Score, Guess, Comment
+from game.serializers import GroupSerializer
 
 
 class IndexView(View):
@@ -131,5 +133,12 @@ class BestScoresView(ListView):
 #             ['kalina.szymczyk@gmail.com'],
 #         )
 
+
+class ScoresViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Score.objects.order_by('-players_score')[:5]
+    serializer_class = GroupSerializer
 
 

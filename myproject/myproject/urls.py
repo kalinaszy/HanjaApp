@@ -14,15 +14,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from myproject.settings import settings
+from django.urls import path, include
+from rest_framework import routers
+
+from game import views
+from myproject import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from game.views import IndexView, PlayGameView, BestScoresView, CheckAnswersView, ComposeCommentView, CommentsView, \
     CommentDeleteView, CommentEditView
+from nbp.views import EuroToday
 from user.views import LoginView, AddUserView, LogoutView
 
+router = routers.DefaultRouter()
+router.register(r'scores', views.ScoresViewSet)
+
 urlpatterns = [
+    path('', include(router.urls)),
     path('admin/', admin.site.urls),
     path('', IndexView.as_view()),
     path('login', LoginView.as_view()),
@@ -35,6 +43,7 @@ urlpatterns = [
     path('comments', CommentsView.as_view(), name='comments_list'),
     path('comment/<int:pk>/delete', CommentDeleteView.as_view(), name='delete_comment'),
     path('comment/<int:pk>/edit', CommentEditView.as_view(), name='edit_comment'),
+    path('euro_today', EuroToday.as_view(), name='euro'),
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
